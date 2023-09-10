@@ -1,0 +1,44 @@
+.Counter {
+  background-color: rgb(207, 71, 71);
+  padding: 10px;
+  border-radius: 10px;
+  color: white;
+  text-align: center;
+}
+
+.Controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+.Button {
+  background-color: rgb(69, 69, 198);
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  margin: 0 10px;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.Number {
+  font-size: 24px;
+}
+
+.AddButton {
+  background-color: rgb(69, 69, 198);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 18px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.AddButton:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
