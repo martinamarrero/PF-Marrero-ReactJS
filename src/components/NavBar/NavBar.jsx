@@ -26,24 +26,24 @@ const NavBar = () => {
                 <div className='collapse navbar-collapse' id='navbarNav'>
                     <ul className='navbar-nav'>
                         <li className='nav-item'>
-                            <Link to="/"> {/* Enlace a mostrar todos los productos */}
+                            <Link to="/">
                                 <button className='nav-link active' aria-current='page'>
                                     Inicio
                                 </button>
                             </Link>
                         </li>
                         <li className='nav-item'>
-                            <Link to="/category/camisetas"> {/* Enlace a Camisetas */}
+                            <Link to="/category/camisetas">
                                 <button className='nav-link'>Camisetas</button>
                             </Link>
                         </li>
                         <li className='nav-item'>
-                            <Link to="/category/pantalones"> {/* Enlace a Pantalones */}
+                            <Link to="/category/pantalones">
                                 <button className='nav-link'>Pantalones</button>
                             </Link>
                         </li>
                         <li className='nav-item'>
-                            <Link to="/category/canguros"> {/* Enlace a Canguros */}
+                            <Link to="/category/canguros">
                                 <button className='nav-link'>Canguros</button>
                             </Link>
                         </li>

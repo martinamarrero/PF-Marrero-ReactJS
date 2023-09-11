@@ -1,24 +1,22 @@
 import React, { useState, useEffect } from "react";
-import { getProducts } from "../../asyncMock"; // Importa la función getProducts
+import { getProducts } from "../../asyncMock";
 import ItemList from "../ItemList/ItemList";
 import { useParams } from "react-router-dom";
 
 const ItemListContainer = ({ greeting }) => {
   const [products, setProducts] = useState([]);
+  const [selectedProduct, setSelectedProduct] = useState(null);
   const { categoryId } = useParams();
 
   useEffect(() => {
-    // Obtener todos los productos
     getProducts()
       .then((response) => {
-        // Filtrar los productos por categoría si categoryId está presente en la URL
         if (categoryId) {
           const filteredProducts = response.filter(
             (product) => product.category === categoryId
           );
           setProducts(filteredProducts);
         } else {
-          // Si no hay categoría seleccionada, mostrar todos los productos
           setProducts(response);
         }
       })
@@ -27,10 +25,22 @@ const ItemListContainer = ({ greeting }) => {
       });
   }, [categoryId]);
 
+  const handleDetailClick = (product) => {
+    setSelectedProduct(product);
+  };
+
   return (
     <div>
       <h1>{greeting}</h1>
-      <ItemList products={products} />
+      <ItemList products={products} onDetailClick={handleDetailClick} />
+      {selectedProduct && (
+        <div>
+          
+          <h2>Detalle del Producto</h2>
+          <p>Nombre: {selectedProduct.name}</p>
+          
+        </div>
+      )}
     </div>
   );
 };

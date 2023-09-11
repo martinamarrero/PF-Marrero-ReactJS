@@ -1,6 +1,10 @@
 import { Link } from 'react-router-dom';
 
-const Item = ({ id, name, img, price, stock }) => {
+const Item = ({ id, name, img, price, stock, onDetailClick }) => {
+    const handleDetailClick = () => {
+        // Llama a la función de manejo del evento y pasa la información del producto
+        onDetailClick({ id, name, img, price, stock });
+    };
 
     return (
         <article className="CardItem">
@@ -21,8 +25,10 @@ const Item = ({ id, name, img, price, stock }) => {
                 </p>
             </section>
             <footer className="ItemFooter">
-                <Link to="/detalle">
-                    <button className="Option">Ver detalle</button>
+                <Link to={`/item/${id}`}>
+                    <button className="Option" onClick={handleDetailClick}>
+                        Ver detalle
+                    </button>
                 </Link>
             </footer>
         </article>
