@@ -2,6 +2,7 @@ import React from 'react';
 import CartWidget from '../CartWidget/CartWidget';
 import './NavBar.css';
 import { Link } from 'react-router-dom';
+import logoImg from './Escudo-cndf.png'
 
 const NavBar = () => {
     return (
@@ -9,7 +10,7 @@ const NavBar = () => {
             <div class="container-fluid">
                 <Link to="/">
                     <a className='navbar-brand' href='#' role='link'>
-                        Tienda Nacional
+                        <img src={logoImg} alt="EscudoNacional" className="logo-img" />
                     </a>
                 </Link>
                 <button

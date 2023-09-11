@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import './item.css';
 
 const Item = ({ id, name, img, price, stock, onDetailClick }) => {
     const handleDetailClick = () => {
@@ -7,7 +8,7 @@ const Item = ({ id, name, img, price, stock, onDetailClick }) => {
     };
 
     return (
-        <article className="CardItem">
+        <article className="CardItem item-card">
             <header className="Header">
                 <h2 className="ItemHeader">
                     {name}

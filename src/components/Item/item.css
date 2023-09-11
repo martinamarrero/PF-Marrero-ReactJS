@@ -1,0 +1,6 @@
+.item-card {
+    background-color: rgb(207, 71, 71);
+    border-radius: 8px; /* Añade esquinas redondeadas para un aspecto más agradable */
+    padding: 10px; /* Añade espaciado interno para separar el contenido del borde */
+  }
+  
