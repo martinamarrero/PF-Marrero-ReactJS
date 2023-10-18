@@ -8,11 +8,11 @@ import { db } from '../../services/firebase/firebaseConfig'
 const ItemListContainer = ({ greeting }) => {
   const [products, setProducts] = useState([]);
   const [selectedProduct, setSelectedProduct] = useState(null);
-  const [loading, setLoading] = useState(true);
+  
   const { categoryId } = useParams();
 
   useEffect(() => {
-    setLoading(true)
+    
 
     const collectionRef = categoryId
     ? query(collection(db, 'products'), where('category', '==', categoryId))
@@ -29,12 +29,9 @@ const ItemListContainer = ({ greeting }) => {
       .catch(error => {
         console.log(error)
       })
-      .finally(() => {
-        setLoading(false)
-      })
   }, [categoryId]);
 
-  const handleDetailClick = (product) => {
+   const handleDetailClick = (product) => {
     setSelectedProduct(product);
   };
 
@@ -44,10 +41,8 @@ const ItemListContainer = ({ greeting }) => {
       <ItemList products={products} onDetailClick={handleDetailClick} />
       {selectedProduct && (
         <div>
-          
           <h2>Detalle del Producto</h2>
           <p>Nombre: {selectedProduct.name}</p>
-          
         </div>
       )}
     </div>

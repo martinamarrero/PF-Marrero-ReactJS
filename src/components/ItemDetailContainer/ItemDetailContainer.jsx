@@ -8,11 +8,9 @@ import { db } from '../../services/firebase/firebaseConfig'
 
 const ItemDetailContainer = () => {
     const [product, setProduct] = useState(null);
-    const [loading, setLoading] = useState(true);
     const { itemId } = useParams();
 
     useEffect(() => {
-        setLoading(true)
 
         const docRef = doc(db, 'products', itemId)
 
@@ -24,9 +22,6 @@ const ItemDetailContainer = () => {
             })
             .catch(error => {
                 console.log(error);
-            })
-            .finally(() => {
-                setLoading(false)
             })
     }, [itemId]);
 

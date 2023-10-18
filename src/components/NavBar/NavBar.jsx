@@ -9,9 +9,7 @@ const NavBar = () => {
         <nav class="navbar navbar-expand-lg bg-body-tertiary">
             <div class="container-fluid">
                 <Link to="/">
-                    <a className='navbar-brand' href='#' role='link'>
                         <img src={logoImg} alt="EscudoNacional" className="logo-img" />
-                    </a>
                 </Link>
                 <button
                     className='navbar-toggler'
@@ -28,24 +26,24 @@ const NavBar = () => {
                     <ul className='navbar-nav'>
                         <li className='nav-item'>
                             <Link to="/">
-                                <button className='nav-link active' aria-current='page'>
+                                <p className='nav-link active' aria-current='page'>
                                     Inicio
-                                </button>
+                                </p>
                             </Link>
                         </li>
                         <li className='nav-item'>
                             <Link to="/category/camisetas">
-                                <button className='nav-link'>Camisetas</button>
+                                <p className='nav-link'>Camisetas</p>
                             </Link>
                         </li>
                         <li className='nav-item'>
                             <Link to="/category/pantalones">
-                                <button className='nav-link'>Pantalones</button>
+                                <p className='nav-link'>Pantalones</p>
                             </Link>
                         </li>
                         <li className='nav-item'>
                             <Link to="/category/canguros">
-                                <button className='nav-link'>Canguros</button>
+                                <p className='nav-link'>Canguros</p>
                             </Link>
                         </li>
                     </ul>

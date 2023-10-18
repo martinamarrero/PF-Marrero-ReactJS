@@ -5,77 +5,81 @@ import { Timestamp, writeBatch } from 'firebase/firestore';
 import { collection, getDocs, query, where, documentId } from 'firebase/firestore';
 import { addDoc } from 'firebase/firestore';
 
-import CheckoutForm from '../CheckoutForm/checkoutForm'
+import CheckoutForm from '../CheckoutForm/checkoutForm';
 
 const Checkout = () => {
-    const [loading, setLoading] = useState(false)
-    const [orderId, setOrderId] = useState('')
+    const [loading, setLoading] = useState(false);
+    const [orderId, setOrderId] = useState('');
 
-    const { cart, total, clearCart } = useContext(CartContext)
+    const { cart, total, clearCart } = useContext(CartContext);
+
     const createOrder = async ({ name, phone, email }) => {
-        setLoading(true)
+        setLoading(true);
 
         try {
             const objOrder = {
                 buyer: {
-                    name, phone, email
+                    name,
+                    phone,
+                    email
                 },
                 items: cart,
                 total: total,
                 date: Timestamp.fromDate(new Date())
-            }
-            const batch = writeBatch(db)
+            };
 
-            const outOfStock = []
+            const batch = writeBatch(db);
 
-            const ids = cart.map(prod => prod.id)
+            const outOfStock = [];
 
-            const productsRef = collection(db, 'products')
+            const ids = cart.map(prod => prod.id);
 
-            const productsAddedFromFirestore = await getDocs(query(productsRef, where(documentId(), 'in', ids)))
+            const productsRef = collection(db, 'products');
 
-            const { docs } = productsAddedFromFirestore
+            const productsAddedFromFirestore = await getDocs(query(productsRef, where(documentId(), 'in', ids)));
+
+            const { docs } = productsAddedFromFirestore;
 
             docs.forEach(doc => {
-                const dataDoc = doc.data()
-                const stockDb = dataDoc.stock
+                const dataDoc = doc.data();
+                const stockDb = dataDoc.stock;
 
-                const productAddedToCart = cart.find(prod => prod.id === doc.id)
-                const prodQuantity = productAddedToCart?.quantity
+                const productAddedToCart = cart.find(prod => prod.id === doc.id);
+                const prodQuantity = productAddedToCart?.quantity;
 
                 if (stockDb >= prodQuantity) {
-                    batch.update(doc.ref, { stock: stockDb - prodQuantity })
+                    batch.update(doc.ref, { stock: stockDb - prodQuantity });
                 } else {
-                    outOfStock.push({ id: doc.id, ...dataDoc })
+                    outOfStock.push({ id: doc.id, ...dataDoc });
                 }
-            })
+            });
 
             if (outOfStock.length === 0) {
-                await batch.commit()
+                await batch.commit();
 
-                const orderRef = collection(db, 'orders')
+                const orderRef = collection(db, 'orders');
 
-                const orderAdded = await addDoc(orderRef, objOrder)
+                const orderDocRef = await addDoc(orderRef, objOrder);
 
-                setOrderId(orderAdded.id)
-                clearCart()
-                console.log(orderAdded.id)
+                setOrderId(orderDocRef.id);
+                clearCart();
+                console.log(orderDocRef.id);
             } else {
-                console.error('Hay productos que estan fuera de stock')
+                console.error('Hay productos que están fuera de stock');
             }
         } catch (error) {
-            console.log(error)
+            console.error('Error al crear la orden:', error);
         } finally {
-            setLoading(false)
+            setLoading(false);
         }
     }
 
     if (loading) {
-        return <h1>Se esta generando su orden...</h1>
+        return <h1>Se está generando su orden...</h1>;
     }
 
     if (orderId) {
-        return <h1>El id de su orden es: {orderId}</h1>
+        return <h1>El ID de su orden es: {orderId}</h1>;
     }
 
     return (
@@ -86,4 +90,4 @@ const Checkout = () => {
     );
 }
 
-export default Checkout
+export default Checkout;

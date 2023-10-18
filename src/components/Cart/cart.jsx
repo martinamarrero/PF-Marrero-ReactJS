@@ -5,7 +5,9 @@ import CartItem from '../CartItem/cartItem';
 import { Link } from 'react-router-dom';
 
 const Cart = () => {
-    const { cart, clearCart, totalQuantity, total, removeItem } = useContext(CartContext)
+    const { cart, clearCart, totalQuantity, removeItem } = useContext(CartContext);
+
+    const total = cart.reduce((acc, product) => acc + (product.price * product.quantity), 0);
 
     if (totalQuantity === 0) {
         return (
@@ -21,7 +23,7 @@ const Cart = () => {
             {cart.map(p => (
                 <CartItem key={p.id} {...p} removeItem={removeItem} />
             ))}
-            <h3>Total: ${total} </h3>
+            <h3>Total: ${total.toFixed(2)}</h3>
             <button onClick={() => clearCart()} className='Option'>Limpiar carrito</button>
             <Link to='/checkout' className='Option'>Checkout</Link>
         </div>
