@@ -14,6 +14,10 @@ const Checkout = () => {
     const { cart, total, clearCart } = useContext(CartContext);
 
     const createOrder = async ({ name, phone, email }) => {
+        if (cart.length === 0) {
+            console.error('El carrito está vacío.');
+            return;
+        }
         setLoading(true);
 
         try {
@@ -60,19 +64,20 @@ const Checkout = () => {
                 const orderRef = collection(db, 'orders');
 
                 const orderDocRef = await addDoc(orderRef, objOrder);
+                console.log('Orden creada:', orderDocRef.id);
 
                 setOrderId(orderDocRef.id);
                 clearCart();
-                console.log(orderDocRef.id);
             } else {
                 console.error('Hay productos que están fuera de stock');
             }
         } catch (error) {
             console.error('Error al crear la orden:', error);
         } finally {
-            setLoading(false);
+            setLoading(false); // Esto debe ir fuera del bloque try-catch
         }
     }
+
 
     if (loading) {
         return <h1>Se está generando su orden...</h1>;

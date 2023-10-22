@@ -1,18 +1,21 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { CartContext } from '../../context/cartContext';
 
-const CartItem = ({ id, name, price, quantity, removeItem }) => {
+const CartItem = ({ id, title, price, quantity }) => {
+    const { removeItem } = useContext(CartContext);
 
-    const handleRemoveItem = () => {
-        // Llama a la función removeItem con el ID del producto
+    const handleRemoveClick = () => {
         removeItem(id);
-    };
+    }
 
     return (
         <div className="cart-item">
-            <h3>{name}</h3>
-            <p>Precio por unidad: ${price}</p>
-            <p>Cantidad: {quantity}</p>
-            <button className='Option' onClick={handleRemoveItem}>Eliminar</button>
+            <div className="cart-item-details">
+                <h4>{title}</h4>
+                <p>Precio: ${price}</p>
+                <p>Cantidad: {quantity}</p>
+            </div>
+            <button onClick={handleRemoveClick}>Eliminar</button>
         </div>
     );
 }

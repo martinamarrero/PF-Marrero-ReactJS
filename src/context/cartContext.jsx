@@ -2,6 +2,7 @@ import { createContext, useState, useEffect } from "react";
 
 export const CartContext = createContext({
     cart: [],
+    removeItem: () => {},
 })
 
 export const CartProvider = ({ children }) => {
